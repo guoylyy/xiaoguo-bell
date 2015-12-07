@@ -6,21 +6,21 @@
 			"attrs": [
 				{
 					"attrName": "create_time",
-					"attrType": "Date",
+					"attrType": "DateTime",
 					"dateConstraint": "",
 					"enumValues": [],
 					"required": true
 				},
 				{
 					"attrName": "update_time",
-					"attrType": "Date",
+					"attrType": "DateTime",
 					"dateConstraint": "",
 					"enumValues": [],
 					"required": true
 				},
 				{
 					"attrName": "request_time",
-					"attrType": "Date",
+					"attrType": "DateTime",
 					"dateConstraint": "",
 					"enumValues": [],
 					"required": true

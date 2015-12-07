@@ -4,6 +4,14 @@ from flask import abort, jsonify, request
 import datetime
 import json
 
+@app.route('/bell/lastest', methods = ['GET'])
+def get_lastest_bell():
+    entities = bell.Bell.query.order_by(bell.Bell.id.desc()).limit(1).all()
+    if(len(entities) > 0):
+        return jsonify(entities[0].to_dict())
+    else:
+        return jsonify("")
+
 @app.route('/bell/bells', methods = ['GET'])
 def get_all_bells():
     entities = bell.Bell.query.all()
@@ -19,10 +27,10 @@ def get_bell(id):
 @app.route('/bell/bells', methods = ['POST'])
 def create_bell():
     entity = bell.Bell(
-        create_time = datetime.datetime.strptime(request.json['create_time'], "%Y-%m-%d").date()
-        , update_time = datetime.datetime.strptime(request.json['update_time'], "%Y-%m-%d").date()
-        , request_time = datetime.datetime.strptime(request.json['request_time'], "%Y-%m-%d").date()
-        , is_played = request.json['is_played']
+        create_time =  datetime.datetime.now()
+        , update_time =  datetime.datetime.now()
+        , request_time =  datetime.datetime.now()
+        , is_played = False
         , repeat_times = request.json['repeat_times']
     )
     db.session.add(entity)
@@ -35,9 +43,7 @@ def update_bell(id):
     if not entity:
         abort(404)
     entity = bell.Bell(
-        create_time = datetime.datetime.strptime(request.json['create_time'], "%Y-%m-%d").date(),
-        update_time = datetime.datetime.strptime(request.json['update_time'], "%Y-%m-%d").date(),
-        request_time = datetime.datetime.strptime(request.json['request_time'], "%Y-%m-%d").date(),
+        update_time = datetime.datetime.now(),
         is_played = request.json['is_played'],
         repeat_times = request.json['repeat_times'],
         id = id
