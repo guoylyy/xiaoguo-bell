@@ -7,8 +7,6 @@
 		.bell-pos {
 			position: absolute;
 			left: 50%;
-			top: 50%;
-			margin-top: -150px;
 			margin-left: -150px;
 		}
 		.bell-button {
@@ -34,11 +32,14 @@
 	</style>
 </head>
 <body>
-	<button class="bell-pos bell-button jBellBtn">门铃按钮</button>
+	<button class="bell-pos bell-button jBellBtn" style="top: 20%;">门铃按钮</button>
+	<button class="bell-pos bell-button jStopBtn" style="bottom: 20%;">到家了</button>
 	<h2 class="jBellLabel" style="display: none;">门铃已按，30s后再按</h2>
 
 	<script src="lib/jquery/dist/jquery.js"></script>
 	<script>
+		var currBell = null;
+
 		$('.jBellBtn').click(function () {
 			var baseUrl = '/';
 
@@ -52,6 +53,8 @@
 			})
 			.done(function (data) {
 				if(typeof(data) == 'object' && data != {}) {
+					currBell = data;
+
 					$('.jBellBtn').hide();
 					$('.jBellLabel').show();
 					setTimeout(function() {
@@ -60,6 +63,19 @@
 					}, 30000);
 				}
 			});
+		});
+
+		$('.jStopBtn').click(function () {
+			var baseUrl = '/';
+
+			if(currBell) {
+				$.ajax({
+		  			url: baseUrl + 'bell/bells/'+currBell.id,
+		      		method: 'PUT',
+		      		contentType: 'application/json',
+					data: JSON.stringify(currBell)
+		  		});
+			}
 		});
 	</script>
 </body>
