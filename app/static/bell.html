@@ -55,7 +55,7 @@
 	<script src="lib/jquery/dist/jquery.js"></script>
 	<script src="lib/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
 	<script>
-		var baseUrl = 'http://139.196.30.98:5000/';
+		var baseUrl = '/';
 		var currBell = null;
 
 		$(document).ready(function(){
@@ -63,7 +63,7 @@
 	        ready: function () {
 	          $(this).jPlayer("setMedia", {
 	            title: "bell",
-	            mp3: "http://www.daode.org/download/audio/gm/guojige2.mp3"
+	            mp3: "music/bell.mp3"
 	          });
 	        },
 	        cssSelectorAncestor: "#jp_container_1",
