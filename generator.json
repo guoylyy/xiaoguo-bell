@@ -1,0 +1,46 @@
+{
+	"baseName": "bell",
+	"entities": [
+		{
+			"name": "bell",
+			"attrs": [
+				{
+					"attrName": "create_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "update_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "request_time",
+					"attrType": "Date",
+					"dateConstraint": "",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "is_played",
+					"attrType": "Boolean",
+					"enumValues": [],
+					"required": true
+				},
+				{
+					"attrName": "repeat_times",
+					"attrType": "Integer",
+					"min": "0",
+					"max": "10",
+					"enumValues": [],
+					"required": true
+				}
+			]
+		}
+	],
+	"resources": []
+}
