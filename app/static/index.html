@@ -1,57 +1,66 @@
-<!doctype html>
-<html lang="en" ng-app="bell">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bell</title>
-  <link href="lib/bootstrap-css/css/bootstrap.css" rel="stylesheet">
-  <link href="lib/jquery-ui/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
-  <link href="css/app.css" rel="stylesheet">
+	<meta charset="utf-8">
+	<title>门铃按钮</title>
+	<style type="text/css">
+		.bell-pos {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-top: -150px;
+			margin-left: -150px;
+		}
+		.bell-button {
+			font-size: 40px;
+			font-family: Microsoft Yahei;
+			color: #fff;
+			width: 300px;
+			height: 300px;
+			background-color: #FF4351;
+			box-shadow: 0 7px 0 #ff1022, 0 8px 3px rgba(0, 0, 0, 0.3);
+			border-radius: 100%;
+			border: none;
+			cursor: pointer;
+			transition-property: all;
+		    transition-duration: .3s;
+		}
+		.bell-button:active {
+			box-shadow: 0 2px 0 #ff1022, 0 3px 3px rgba(0, 0, 0, 0.2);
+		}
+		.bell-button:focus {
+			outline: none;
+		}
+	</style>
 </head>
 <body>
- <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-   <div class="container">
-     <div class="navbar-header">
-       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-         <span class="sr-only">Toggle navigation</span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-       </button>
-       <a class="navbar-brand" href="#">Bell</a>
-     </div>
+	<button class="bell-pos bell-button jBellBtn">门铃按钮</button>
+	<h2 class="jBellLabel" style="display: none;">门铃已按，30s后再按</h2>
 
-     <!-- Collect the nav links, forms, and other content for toggling -->
-     <div class="collapse navbar-collapse navbar-ex1-collapse">
-       <ul class="nav navbar-nav">
-         
-         <li>
-         <a href="/#/bells">Bells</a>
-         </li>
-         
-       </ul>
-     </div>
-     <!-- /.navbar-collapse -->
-   </div>
-   <!-- /.container -->
-  </nav>
-  <div class="container" ng-view></div>
-  <script src="lib/jquery/dist/jquery.js"></script>
-  <script src="lib/jquery-ui/jquery-ui.js"></script>
-  <script src="lib/lodash/dist/lodash.js"></script>
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular-resource/angular-resource.js"></script>
-  <script src="lib/angular-route/angular-route.js"></script>
-  <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <script src="lib/angular-ui-date/src/date.js"></script>
+	<script src="lib/jquery/dist/jquery.js"></script>
+	<script>
+		$('.jBellBtn').click(function () {
+			var baseUrl = '/';
 
-  <script src="js/app.js"></script>
-  <script src="js/home/home-controller.js"></script>
-  
-  <script src="js/bell/bell-controller.js"></script>
-  <script src="js/bell/bell-router.js"></script>
-  <script src="js/bell/bell-service.js"></script>
-  
+			$.ajax({
+				url: baseUrl + 'bell/bells',
+				method: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					repeat_times: 1
+				})
+			})
+			.done(function (data) {
+				if(typeof(data) == 'object' && data != {}) {
+					$('.jBellBtn').hide();
+					$('.jBellLabel').show();
+					setTimeout(function() {
+						$('.jBellBtn').show();
+						$('.jBellLabel').hide();
+					}, 30000);
+				}
+			});
+		});
+	</script>
 </body>
 </html>
