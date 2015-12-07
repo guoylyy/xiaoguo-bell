@@ -3,11 +3,11 @@ from app import db
 class Bell(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     
-    create_time = db.Column(db.Date)
+    create_time = db.Column(db.DateTime)
     
-    update_time = db.Column(db.Date)
+    update_time = db.Column(db.DateTime)
     
-    request_time = db.Column(db.Date)
+    request_time = db.Column(db.DateTime)
     
     is_played = db.Column(db.Boolean)
     
