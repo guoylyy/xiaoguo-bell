@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>门铃按钮</title>
+	<style type="text/css">
+		.bell-pos {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-top: -150px;
+			margin-left: -150px;
+		}
+		.bell-button {
+			font-size: 40px;
+			font-family: Microsoft Yahei;
+			color: #fff;
+			width: 300px;
+			height: 300px;
+			background-color: #FF4351;
+			box-shadow: 0 7px 0 #ff1022, 0 8px 3px rgba(0, 0, 0, 0.3);
+			border-radius: 100%;
+			border: none;
+			cursor: pointer;
+			transition-property: all;
+		    transition-duration: .3s;
+		}
+		.bell-button:active {
+			box-shadow: 0 2px 0 #ff1022, 0 3px 3px rgba(0, 0, 0, 0.2);
+		}
+		.bell-button:focus {
+			outline: none;
+		}
+	</style>
+</head>
+<body>
+	<button class="bell-pos bell-button jBellBtn">门铃按钮</button>
+	<h2 class="jBellLabel" style="display: none;">门铃已按，30s后再按</h2>
+
+	<script src="lib/jquery/dist/jquery.js"></script>
+	<script>
+		$('.jBellBtn').click(function () {
+			var baseUrl = 'http://139.196.30.98:5000/';
+
+			$.ajax({
+				url: baseUrl + 'bell/bells',
+				method: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					repeat_times: 1
+				})
+			})
+			.done(function (data) {
+				if(typeof(data) == 'object' && data != {}) {
+					$('.jBellBtn').hide();
+					$('.jBellLabel').show();
+					setTimeout(function() {
+						$('.jBellBtn').show();
+						$('.jBellLabel').hide();
+					}, 30000);
+				}
+			});
+		});
+	</script>
+</body>
+</html>
