@@ -29,11 +29,18 @@
 		.bell-button:focus {
 			outline: none;
 		}
+		.bell-button.bell-success-button {
+			background-color: #0880d7;
+			box-shadow: 0 7px 0 #0880d7, 0 8px 3px rgba(0, 0, 0, 0.3);
+		}
+		.bell-button.bell-success-button:active {
+			box-shadow: 0 2px 0 #0880d7, 0 3px 3px rgba(0, 0, 0, 0.2);
+		}
 	</style>
 </head>
 <body>
 	<button class="bell-pos bell-button jBellBtn" style="top: 20%;">门铃按钮</button>
-	<button class="bell-pos bell-button jStopBtn" style="bottom: 20%;">到家了</button>
+	<button class="bell-pos bell-button jStopBtn bell-success-button" style="bottom: 20%;">我到家了</button>
 	<h2 class="jBellLabel" style="display: none;">门铃已按，30s后再按</h2>
 
 	<script src="lib/jquery/dist/jquery.js"></script>
@@ -69,6 +76,7 @@
 			var baseUrl = '/';
 
 			if(currBell) {
+				currBell.is_played = true;
 				$.ajax({
 		  			url: baseUrl + 'bell/bells/'+currBell.id,
 		      		method: 'PUT',
